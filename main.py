@@ -4,7 +4,7 @@ import numpy as np
 #from altair.examples.pyramid import df#
 #from  import df#
 
-file = 'Combustiveis.csv'
+file = 'Banco de Dados/Combustiveis.csv'
 
 @st.cache_data
 def load_data():
