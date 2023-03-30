@@ -1,7 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import plotly.express as px
 import matplotlib.pyplot as plt
+from PIL import Image
 
 file = 'Banco de Dados/Combustiveis.csv'
 
@@ -12,6 +14,12 @@ def load_data():
 
     return df
 df = load_data()
+
+image = Image.open('Fotos/univesp.png')
+
+with st.columns(3)[1]:
+    st.image(image, use_column_width='auto')
+
 st.title("Preço dos combustiveis 2023")
 st.markdown(
     """
@@ -46,8 +54,6 @@ city = st.sidebar.multiselect(
 df_selection = df.query(
     "Municipio == @city & Produto ==@customer_type & Unidade_de_Medida == @gender"
 )
-
-
 
 chart_data = pd.DataFrame(
     np.random.randn(20, 3),
