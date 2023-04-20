@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
-
+import matplotlib.pyplot as plt
+import tkinter
 file = 'Banco de Dados/Teste.csv'
 
 @st.cache_data
@@ -18,6 +19,22 @@ with st.columns(3)[1]:
     st.image(image, use_column_width='auto')
 
 st.title("Honest Fuel – Análises de Preços de Combustíveis")
+
+# Row A
+a1, a2, a3, a4, a5 = st.columns(5)
+a2.metric("Gasolina", "+0,23", "10%")
+a3.metric("Etanol", "+0,12", "7%")
+a4.metric("Diesel", "+0,18", "9%")
+a5.metric("GNV", "-0,10", "-5%")
+
+# Row B
+#b1, b2, b3, b4 = st.columns(4)
+#b1.metric("Temperature", "70 °F", "1.2 °F")
+#b2.metric("Wind", "9 mph", "-8%")
+#b3.metric("Humidity", "86%", "4%")
+#b4.metric("Humidity", "86%", "4%")
+
+
 st.markdown(
     """
     :bar_chart: Dashboard
@@ -62,4 +79,18 @@ st.line_chart(chart_data)
 
 st.bar_chart(chart_data)
 
+names = ['Gasolina', 'Etanol', 'GNV', 'Diesel']
+size = [30, 11, 3, 12]
 
+# Create a circle at the center of the plot
+my_circle = plt.Circle((0, 0), 0.7, color='white')
+
+# Custom wedges
+plt.pie(size, labels=names, wedgeprops={'linewidth': 7})
+p = plt.gcf()
+p.gca().add_artist(my_circle)
+plt.savefig("teste.png")
+
+image2 = Image.open('teste.png')
+with st.columns(3)[1]:
+    st.image(image2, use_column_width='auto')
