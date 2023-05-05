@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
+import plotly.express as px
 import tkinter
-file = 'Banco de Dados/Teste.csv'
+file = 'Banco de Dados/Dados.csv'
 
 @st.cache_data
 def load_data():
@@ -94,3 +95,12 @@ plt.savefig("teste.png")
 image2 = Image.open('teste.png')
 with st.columns(3)[1]:
     st.image(image2, use_column_width='auto')
+
+# Convertendo a coluna "data" para o formato de data
+df["Data_da_Coleta"] = pd.to_datetime(df["Data_da_Coleta"])
+
+# Criando o gráfico de linhas com data, tipo de produto e valor
+fig = px.bar(df, x="Data_da_Coleta", y="Valor_de_Venda", color="Produto", title="Vendas por tipo de produto")
+
+# Exibindo o gráfico no Streamlit
+st.plotly_chart(fig)
